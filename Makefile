@@ -19,7 +19,8 @@ MLX_PATH		=	$(addprefix $(LIBS_DIR), minilibx-linux/)
 
 LINKS			=	-lm -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LFT_PATH) -lft
 
-SRC				=	$(addprefix $(SRC_DIR), main.c) 
+SRC				=	$(addprefix $(SRC_DIR), main.c) $(addprefix $(SRC_DIR), rgb.c) \
+$(addprefix $(SRC_DIR), parsing.c) #$(addprefix $(SRC_DIR), key_handling.c)
 
 
 OBJ_DIRS		=	$(OBJ_DIR) $(addprefix $(OBJ_DIR), $(SRC_DIR))
@@ -28,7 +29,9 @@ OBJ				=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 $(NAME):			$(OBJ) | $(SRC)
 					printf 'Compiling $(NAME)\n'
-					$(CC) $(CFLAGS) $^ -o $@ -I $(INC_DIR) $(LINKS)
+					make bonus -C includes/libft/
+					$(CC) $(CFLAGS) $^ -o $@ -I $(INC_DIR) $(LINKS) -L ./includes/libft -lft
+
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c | $(OBJ_DIRS)
 					make dependecies
