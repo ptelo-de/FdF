@@ -15,11 +15,33 @@
 
 #include "../minilibx-linux/mlx.h"
 #include "libft/libft.h"
+#include "get_next_line/get_next_line.h"
+
+typedef struct s_2d_point
+{
+	double	x;
+	double	y;
+    //double :variable with 64 bits, 
+    //theerefore precision of 15 casasdec.
+}	t_2d_point;
+
+typedef struct s_3d_point
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_3d_point;
+
+typedef struct s_map{
+
+}t_map
+
+
+
+
 
 //parsing
 void	ft_arg_check(int argc, char **argv);
-
-
 
 
 // typedef struct	s_data {
@@ -34,18 +56,6 @@ void	ft_arg_check(int argc, char **argv);
 // 	void	*win;
 // }				t_vars;
 
-// typedef struct s_2d_point
-// {
-// 	double	x;//variable with 64 bits, theerefore precision of 15 casas dec.
-// 	double	y;
-// }	t_2d_point;
-
-// typedef struct s_3d_point
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// }	t_3d_point;
 
 // enum {
 // 	ON_KEYDOWN = 2,

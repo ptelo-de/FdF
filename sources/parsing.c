@@ -16,20 +16,20 @@ void	ft_arg_check(int argc, char **argv)
 {
 	if (argc > 2)
 	{
-		ft_printf("[fdf] ERROR - Too many arguments | Usage: ");
-		ft_printf("./fdf \"MAP PATH\"");
-		exit(0);
+		ft_putstr_fd("[fdf] ERROR - Too many arguments | Usage: ", 2);
+		ft_putstr_fd("./fdf \"MAP PATH\"", 2);
+		exit(1);
 	}
 	else if (argc == 1)
 	{
-		ft_printf("[fdf] ERROR - No arguments | Usage: ");
-		ft_printf("./fdf \"MAP PATH\"");
-		exit(0);
+		ft_putstr_fd("[fdf] ERROR - No arguments | Usage: ", 2);
+		ft_putstr_fd("./fdf \"MAP PATH\"", 2);
+		exit(1);
 	}
 	else if (ft_strncmp(*argv + ft_strlen(*argv) - 4, ".fdf", 4))
 	{
-		ft_printf("[fdf] ERROR - Invalid file extension | Usage: ");
-		ft_printf("./fdf \"MAP PATH\"");
-		exit(0);
+		ft_putstr_fd("[fdf] ERROR - Invalid file extension | Usage: ", 2);
+		ft_putstr_fd("./fdf \"MAP PATH\"", 2);
+		exit(1);
 	}
 }

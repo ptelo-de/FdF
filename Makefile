@@ -14,13 +14,18 @@ SRC_DIR			=	sources/
 
 OBJ_DIR			=	objs/
 
+GNL_DIR			=	includes/get_next_line/
+
 
 MLX_PATH		=	$(addprefix $(LIBS_DIR), minilibx-linux/)
 
 LINKS			=	-lm -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LFT_PATH) -lft
 
-SRC				=	$(addprefix $(SRC_DIR), main.c) $(addprefix $(SRC_DIR), rgb.c) \
-$(addprefix $(SRC_DIR), parsing.c) #$(addprefix $(SRC_DIR), key_handling.c)
+SRC				=	$(addprefix $(GNL_DIR), get_next_line_utils.c) \
+	\				$(addprefix $(GNL_DIR), get_next_line.c) \
+					$(addprefix $(SRC_DIR), main.c) \
+ 					$(addprefix $(SRC_DIR), rgb.c) \
+					$(addprefix $(SRC_DIR), parsing.c) #$(addprefix $(SRC_DIR), key_handling.c)
 
 
 OBJ_DIRS		=	$(OBJ_DIR) $(addprefix $(OBJ_DIR), $(SRC_DIR))
