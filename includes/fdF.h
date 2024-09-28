@@ -21,20 +21,20 @@ typedef struct s_2d_point
 {
 	double	x;
 	double	y;
+	t_2d_point *next;
     //double :variable with 64 bits, 
     //theerefore precision of 15 casasdec.
 }	t_2d_point;
 
-typedef struct s_3d_point
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_3d_point;
 
-typedef struct s_map{
 
-}t_map
+typedef struct s_line{
+	int line_index;
+	t_2d_point *pos;
+	t_line *next_line;
+
+}t_line;
+
 
 
 
