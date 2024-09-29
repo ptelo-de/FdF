@@ -15,13 +15,14 @@
 
 #include "../minilibx-linux/mlx.h"
 #include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
+#include "get_next_line.h"
+#include <fcntl.h> //readonlymacro
 
 typedef struct s_2d_point
 {
 	double	x;
 	double	y;
-	t_2d_point *next;
+	struct t_2d_point *next;
     //double :variable with 64 bits, 
     //theerefore precision of 15 casasdec.
 }	t_2d_point;
@@ -31,7 +32,7 @@ typedef struct s_2d_point
 typedef struct s_line{
 	int line_index;
 	t_2d_point *pos;
-	t_line *next_line;
+	struct t_line *next_line;
 
 }t_line;
 
@@ -42,7 +43,7 @@ typedef struct s_line{
 
 //parsing
 void	ft_arg_check(int argc, char **argv);
-
+void ft_file_to_lines(int fd);
 
 // typedef struct	s_data {
 // 	void	*img;

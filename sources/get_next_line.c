@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptelo-de <ptelo-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:13:48 by ptelo-de          #+#    #+#             */
-/*   Updated: 2024/05/21 13:38:57 by ptelo-de         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:15:06 by ptelo-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../includes/fdF.h"
 
 int	ft_notfullline(char *line)
 {
@@ -57,26 +57,26 @@ int	ft_okspollish(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[FOPEN_MAX][BUFFER_SIZE + 1];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 	int			bytesread;
 
-	if (fd < 0 || fd > FOPEN_MAX)
+	if (fd < 0)
 		return (NULL);
 	bytesread = BUFFER_SIZE;
 	line = NULL;
 	while (bytesread != 0 && ft_notfullline(line))
 	{
-		if (!*buffer[fd])
-			bytesread = read(fd, buffer[fd], BUFFER_SIZE);
+		if (!*buffer)
+			bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread == -1)
 		{
 			if (line)
 				free(line);
 			return (NULL);
 		}
-		line = ft_strjoin(line, buffer[fd]);
-		if (ft_okspollish(buffer[fd]) && !*line)
+		line = ft_strjoin2(line, buffer);
+		if (ft_okspollish(buffer) && !*line)
 			return (free(line), NULL);
 	}
 	return (line);

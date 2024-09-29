@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,7 +24,7 @@
 char	*ft_strchr(const char *s, int c);
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin2(char *s1, char *s2);
 int		ft_read_and_check(char *buffer, unsigned int size, int fd);
 int		ft_okspollish(char *buffer);
 char	*get_next_line(int fd);

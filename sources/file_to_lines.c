@@ -33,8 +33,12 @@ void ft_add_pos_to_line(t_line **lines, char *x, int y)
 void ft_file_to_lines(int fd)
 {
     t_line *lines;
+    char *gnl;
 
     lines = ft_init_lines();
+    (void)lines;
+    gnl = get_next_line(fd);
+    ft_putstr_fd(gnl, 1);
 
     // line = get_next_line(fd);
     // if (!line)

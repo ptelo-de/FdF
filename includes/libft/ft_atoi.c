@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 int	ft_atoi(const char *nptr)
 {
 	int	nb;
@@ -37,6 +38,11 @@ int	ft_atoi(const char *nptr)
 // calculates the number an atribute can be translated
 // does not allow buffer overflow or returning the number
 // if trash values follow the digit part.
+void	ft_error(void)
+{
+	ft_putstr_fd("error in atoi2", 2);
+	exit(1);
+}
 int	ft_atoi2(const char *nptr,	int i, int sign)
 {
 	long long	nb;

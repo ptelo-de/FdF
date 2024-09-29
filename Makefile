@@ -17,20 +17,21 @@ OBJ_DIR			=	objs/
 GNL_DIR			=	includes/get_next_line/
 
 
-MLX_PATH		=	$(addprefix $(LIBS_DIR), minilibx-linux/)
+MLX_PATH		=	minilibx-linux/
 
 LINKS			=	-lm -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LFT_PATH) -lft
 
-SRC				=	$(addprefix $(GNL_DIR), get_next_line_utils.c) \
-	\				$(addprefix $(GNL_DIR), get_next_line.c) \
+SRC				=	$(addprefix $(SRC_DIR), get_next_line_utils.c) \
+					$(addprefix $(SRC_DIR), get_next_line.c) \
 					$(addprefix $(SRC_DIR), main.c) \
  					$(addprefix $(SRC_DIR), rgb.c) \
-					$(addprefix $(SRC_DIR), parsing.c) #$(addprefix $(SRC_DIR), key_handling.c)
+					$(addprefix $(SRC_DIR), parsing.c) \
+					$(addprefix $(SRC_DIR), file_to_lines.c)  #$(addprefix $(SRC_DIR), key_handling.c)
 
 
 OBJ_DIRS		=	$(OBJ_DIR) $(addprefix $(OBJ_DIR), $(SRC_DIR))
 
-OBJ				=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+OBJ				=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o) 
 
 $(NAME):			$(OBJ) | $(SRC)
 					printf 'Compiling $(NAME)\n'
@@ -57,7 +58,7 @@ clean:
 
 fclean:				clean
 					$(RM) $(NAME)
-					make clean -C $(MLX_PATH)
+#make clean -C $(MLX_PATH)
 
 re:					fclean all
 
