@@ -33,6 +33,7 @@ typedef struct s_line{
 	int line_index;
 	t_2d_point *pos;
 	struct t_line *next_line;
+	char *s;
 
 }t_line;
 
