@@ -26,8 +26,8 @@ SRC				=	$(addprefix $(SRC_DIR), get_next_line_utils.c) \
 					$(addprefix $(SRC_DIR), main.c) \
  					$(addprefix $(SRC_DIR), rgb.c) \
 					$(addprefix $(SRC_DIR), parsing.c) \
-					$(addprefix $(SRC_DIR), file_to_lines.c)  #$(addprefix $(SRC_DIR), key_handling.c)
-
+					$(addprefix $(SRC_DIR), file_to_lines.c) \
+					$(addprefix $(SRC_DIR), print_lines.c)
 
 OBJ_DIRS		=	$(OBJ_DIR) $(addprefix $(OBJ_DIR), $(SRC_DIR))
 

@@ -1,30 +1,33 @@
 #include "../includes/fdF.h"
 
-void ft_add_pos(t_2d_point *pos, char *x, int y)// t_2d_point **pos
+void ft_add_pos(t_2d_point **pos, char *x, int y)// t_2d_point **pos
 {
-    if(!pos)
+    t_2d_point *tmp_pos;
+    tmp_pos = *pos;
+    if(!tmp_pos)
     {
-        pos = ft_calloc(1, sizeof(t_2d_point));
+        ft_putendl_fd("bbbbbbbbbbbbbbbbb", 2);
+        tmp_pos = ft_calloc(1, sizeof(t_2d_point));
         if (!pos)
         {
             ft_putstr_fd("calloc failed in pos init", 2);
             exit(1); //leeks
         }
-        pos->y = y;
-        pos->x = ft_atoi2(x, 0, 1);
-        pos->next = NULL;
+        tmp_pos->y = y;
+        tmp_pos->x = ft_atoi2(x, 0, 1);
+        tmp_pos->next = NULL;
     }
     else
     {
-        pos->next = ft_calloc(1, sizeof(t_2d_point));
-        if (!pos->next)
+        tmp_pos->next = ft_calloc(1, sizeof(t_2d_point));
+        if (!tmp_pos->next)
         {
             ft_putstr_fd("calloc failed in pos init", 2);
             exit(1); //leeks
         }
-        pos->next->y = y;
-        pos->next->x = ft_atoi2(x, 0, 1);
-        pos->next->next = NULL;
+        tmp_pos->next->y = y;
+        tmp_pos->next->x = ft_atoi2(x, 0, 1);
+        tmp_pos->next->next = NULL;
     }   
 }
 t_2d_point *ft_pos_init(char *file_line, int y)
@@ -34,42 +37,50 @@ t_2d_point *ft_pos_init(char *file_line, int y)
     t_2d_point *pos;
 
     pos = NULL;
+    i = 0;
     while (file_line[i])
     {
         while (file_line[i] == 32 || file_line[i] == '\n')
             i++;
-        
         j = 0;
         while (file_line[i + j] && file_line[i + j] != 32 && file_line[i + j] != '\n')
             j++;
-
         if (j > 0)
-            ft_add_pos(pos, ft_substr(file_line, i, j), y);
-
+        {
+            ft_add_pos(&pos, ft_substr(file_line, i, j), y);
+            // ft_putstr_fd(ft_substr(file_line, i, j), 2);
+            // ft_putendl_fd("aaaaaaaaaaaaaaa", 2);
+    
+        }
         i += j;
     }
+    return(pos);
 }
 t_line *ft_new_line(char *s, int y)
 {
-    t_line *lines;
+    t_line *line;
 
-    lines = ft_calloc(1, sizeof(t_line));
-    if (!lines)
+    line = ft_calloc(1, sizeof(t_line));
+    if (!line)
     {
         ft_putstr_fd("calloc failed in lines init", 2);
         exit(1);
     }
-    lines->line_index = y;
-    lines->pos = NULL;
-    lines->next_line = NULL;
-    return(lines);
+    line->line_index = y;
+    line->pos = ft_pos_init(s, y);
+    if(!line->pos)
+    {
+        return(NULL);
+    }
+    line->next_line = NULL;
+    return(line);
 }
 void ft_file_to_lines(char *file_path)
 {
     t_line *lines;
     char *gnl;
     int fd;
-    int i;
+    //int i;
 
     fd = open(file_path, O_RDONLY);
     if(fd < 0)
@@ -78,7 +89,19 @@ void ft_file_to_lines(char *file_path)
         exit(1);
     }
     gnl = get_next_line(fd);
-    lines = ft_new_line(fd, 0);
+    if(!gnl)
+    {
+        ft_putstr_fd("gnl returned null", 2);
+        exit(1);
+    }
+    lines = ft_new_line(gnl, 0);
+    if(!lines)
+    {
+        free(gnl);
+        ft_putstr_fd("error in lines_init", 2);
+        exit(1);
+    }
+    ft_print_line(lines);
     
     free(gnl);
 	close(fd);
