@@ -12,6 +12,27 @@
 
 #include "../includes/fdF.h"
 
+void ft_charslinecheck(char *line)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (line[i])
+    {
+        while (line[i] == 32 || line[i] == '\n')
+            i++;
+        
+        j = 0;
+        while (line[i + j] && line[i + j] != 32 && line[i + j] != '\n')
+            j++;
+
+        if (j > 0)
+            ft_atoi2(ft_substr(line, i, j), 0, 1);
+
+        i += j;
+    }
+}
 void ft_charscheck(char *file_path)
 {
 	int fd;
@@ -20,6 +41,11 @@ void ft_charscheck(char *file_path)
 	if (fd < 0)
 		ft_putstr_fd("[fdf] ERROR - fd not work in parsing\n", 2);
 	line_reader = get_next_line(fd);
+	while(line_reader)
+	{
+		ft_charslinecheck(line_reader);
+		line_reader = get_next_line(fd);
+	}
 	free(line_reader);
 	close(fd);
 }

@@ -45,9 +45,10 @@ void ft_file_to_lines(char *file_path)
     lines = ft_init_lines();
     (void)lines;
     gnl = get_next_line(fd);
-    ft_putendl_fd(gnl, 1);
+    //ft_putendl_fd(gnl, 1);
     gnl = get_next_line(fd);
-    ft_putendl_fd(gnl, 1);
+    //ft_putendl_fd(gnl, 1);
+    (void)gnl;
 	close(fd);
 }
 
