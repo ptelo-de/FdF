@@ -30,15 +30,26 @@ void ft_add_pos_to_line(t_line **lines, char *x, int y)
     line->pos->x = ft_atoi2(x, 0, 1);
     line->pos->next = NULL;
 }
-void ft_file_to_lines(int fd)
+void ft_file_to_lines(char *file_path)
 {
     t_line *lines;
     char *gnl;
+    int fd;
 
+    fd = open(file_path, O_RDONLY);
+    if(fd < 0)
+    {
+    	ft_putstr_fd("[fdf] ERROR - Invalid map or map path\n", 2);
+        exit(1);
+    }
     lines = ft_init_lines();
     (void)lines;
     gnl = get_next_line(fd);
-    ft_putstr_fd(gnl, 1);
+    ft_putendl_fd(gnl, 1);
+    gnl = get_next_line(fd);
+    ft_putendl_fd(gnl, 1);
+	close(fd);
+}
 
     // line = get_next_line(fd);
     // if (!line)
@@ -56,5 +67,3 @@ void ft_file_to_lines(int fd)
 	// free(line);
     
 	// printf("%d\n", fd);
-	close(fd);
-}

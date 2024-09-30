@@ -16,16 +16,8 @@
 
 int	main(int ac, char **av)
 {
-	int	fd;
-	
 	ft_arg_check(ac, ++av);
-	fd = open(*av, O_RDONLY);
-	if (fd >= 0)
-	{
-		ft_file_to_lines(fd);
-	}
-	else
-		ft_putstr_fd("[fdf] ERROR - Invalid map or map path\n", 2);
+	ft_file_to_lines(*av);
 	
 }
 

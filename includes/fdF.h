@@ -43,7 +43,10 @@ typedef struct s_line{
 
 //parsing
 void	ft_arg_check(int argc, char **argv);
-void ft_file_to_lines(int fd);
+void ft_charscheck(char *file_path);
+
+//init
+void ft_file_to_lines(char *fd);
 
 // typedef struct	s_data {
 // 	void	*img;
