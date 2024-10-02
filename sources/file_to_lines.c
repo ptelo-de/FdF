@@ -1,34 +1,31 @@
 #include "../includes/fdF.h"
 
-void ft_add_pos(t_2d_point **pos, char *x, int y)// t_2d_point **pos
+void ft_add_pos(t_2d_point **pos, char *x, int y)
 {
-    t_2d_point *tmp_pos;
-    tmp_pos = *pos;
-    if(!tmp_pos)
+    t_2d_point *new_node;
+    t_2d_point *current;
+
+    new_node = ft_calloc(1, sizeof(t_2d_point));
+    if (!new_node)
     {
-        ft_putendl_fd("bbbbbbbbbbbbbbbbb", 2);
-        tmp_pos = ft_calloc(1, sizeof(t_2d_point));
-        if (!pos)
-        {
-            ft_putstr_fd("calloc failed in pos init", 2);
-            exit(1); //leeks
-        }
-        tmp_pos->y = y;
-        tmp_pos->x = ft_atoi2(x, 0, 1);
-        tmp_pos->next = NULL;
+        ft_putstr_fd("calloc failed in pos init", 2);
+        exit(1);
+    }
+    new_node->y = y;
+    new_node->x = ft_atoi2(x, 0, 1);
+    new_node->next = NULL;
+
+    if (!(*pos))
+    {
+        *pos = new_node;
     }
     else
     {
-        tmp_pos->next = ft_calloc(1, sizeof(t_2d_point));
-        if (!tmp_pos->next)
-        {
-            ft_putstr_fd("calloc failed in pos init", 2);
-            exit(1); //leeks
-        }
-        tmp_pos->next->y = y;
-        tmp_pos->next->x = ft_atoi2(x, 0, 1);
-        tmp_pos->next->next = NULL;
-    }   
+        current = *pos;
+        while (current->next)
+            current = current->next;
+        current->next = new_node;
+    }
 }
 t_2d_point *ft_pos_init(char *file_line, int y)
 {
@@ -46,12 +43,7 @@ t_2d_point *ft_pos_init(char *file_line, int y)
         while (file_line[i + j] && file_line[i + j] != 32 && file_line[i + j] != '\n')
             j++;
         if (j > 0)
-        {
             ft_add_pos(&pos, ft_substr(file_line, i, j), y);
-            // ft_putstr_fd(ft_substr(file_line, i, j), 2);
-            // ft_putendl_fd("aaaaaaaaaaaaaaa", 2);
-    
-        }
         i += j;
     }
     return(pos);
@@ -75,11 +67,27 @@ t_line *ft_new_line(char *s, int y)
     line->next_line = NULL;
     return(line);
 }
+void ft_add_line(t_line **lines, t_line *new_line)
+{
+    t_line *tmp;
+
+    if(!(*lines))
+    {
+        *lines = new_line;
+        return;
+    }
+    tmp = *lines;
+    while(tmp->next_line)
+        tmp = tmp->next_line;
+    tmp->next_line = new_line;
+    
+}
 void ft_file_to_lines(char *file_path)
 {
     t_line *lines;
     char *gnl;
     int fd;
+    int i;
     //int i;
 
     fd = open(file_path, O_RDONLY);
@@ -89,19 +97,25 @@ void ft_file_to_lines(char *file_path)
         exit(1);
     }
     gnl = get_next_line(fd);
-    if(!gnl)
+    if(!gnl) //no sense cause i need one null return
     {
         ft_putstr_fd("gnl returned null", 2);
         exit(1);
     }
-    lines = ft_new_line(gnl, 0);
-    if(!lines)
+    i = 0;
+    while(gnl)
     {
-        free(gnl);
-        ft_putstr_fd("error in lines_init", 2);
-        exit(1);
+
+    ft_add_line(&lines, ft_new_line(gnl, i++)); 
+    // if(!lines)
+    // {
+    //     free(gnl);
+    //     ft_putstr_fd("error in lines_init", 2);
+    //     exit(1);
+    // }
+        ft_print_line(lines);
+        gnl = get_next_line(fd);
     }
-    ft_print_line(lines);
     
     free(gnl);
 	close(fd);
