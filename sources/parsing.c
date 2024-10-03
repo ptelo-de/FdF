@@ -16,6 +16,7 @@ void ft_charslinecheck(char *line)
 {
     int i;
     int j;
+	char *x;
 
     i = 0;
     while (line[i])
@@ -28,7 +29,11 @@ void ft_charslinecheck(char *line)
             j++;
 
         if (j > 0)
-            ft_atoi2(ft_substr(line, i, j), 0, 1);
+		{
+			x = ft_substr(line, i, j);
+            ft_atoi2(x, 0, 1);
+			free(x);
+		}
 
         i += j;
     }
@@ -44,9 +49,9 @@ void ft_charscheck(char *file_path)
 	while(line_reader)
 	{
 		ft_charslinecheck(line_reader);
+		free(line_reader);
 		line_reader = get_next_line(fd);
 	}
-	free(line_reader);
 	close(fd);
 }
 void	ft_arg_check(int ac, char **av)

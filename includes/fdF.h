@@ -33,7 +33,6 @@ typedef struct s_line{
 	int line_index;
 	t_2d_point *pos;
 	struct s_line *next_line;
-	char *s;
 
 }t_line;
 
@@ -48,6 +47,10 @@ void ft_charscheck(char *file_path);
 
 //init
 void ft_file_to_lines(char *fd);
+
+//lineutils
+void ft_linescheck(t_line **lines, int i, char *gnl);
+void ft_free_lines(t_line *lines);
 
 //print lines
 void ft_print_line(t_line *line);

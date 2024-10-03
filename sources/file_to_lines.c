@@ -13,6 +13,7 @@ void ft_add_pos(t_2d_point **pos, char *x, int y)
     }
     new_node->y = y;
     new_node->x = ft_atoi2(x, 0, 1);
+    free(x);
     new_node->next = NULL;
 
     if (!(*pos))
@@ -70,7 +71,6 @@ t_line *ft_new_line(char *s, int y)
 void ft_add_line(t_line **lines, t_line *new_line)
 {
     t_line *tmp;
-
     if(!(*lines))
     {
         *lines = new_line;
@@ -78,7 +78,10 @@ void ft_add_line(t_line **lines, t_line *new_line)
     }
     tmp = *lines;
     while(tmp->next_line)
-        tmp = tmp->next_line;
+    {
+     tmp = tmp->next_line;
+    }   
+        
     tmp->next_line = new_line;
     
 }
@@ -103,22 +106,20 @@ void ft_file_to_lines(char *file_path)
         exit(1);
     }
     i = 0;
+    lines = NULL;
     while(gnl)
     {
 
-    ft_add_line(&lines, ft_new_line(gnl, i++)); 
-    // if(!lines)
-    // {
-    //     free(gnl);
-    //     ft_putstr_fd("error in lines_init", 2);
-    //     exit(1);
-    // }
-        ft_print_line(lines);
-        gnl = get_next_line(fd);
+    ft_add_line(&lines, ft_new_line(gnl, i)); 
+    ft_linescheck(&lines, i++, gnl);
+    free(gnl);
+    gnl = get_next_line(fd);
     }
+        ft_print_line(lines);
     
     free(gnl);
 	close(fd);
+    ft_free_lines(lines);
 }
 
     // line = get_next_line(fd);
