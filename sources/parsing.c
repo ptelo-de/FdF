@@ -38,23 +38,27 @@ void ft_charslinecheck(char *line)
         i += j;
     }
 }
-void ft_charscheck(char *file_path)
+int ft_charscheck(char *file_path)
 {
 	int fd;
 	char *line_reader;
+	int size;
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		ft_putstr_fd("[fdf] ERROR - fd not work in parsing\n", 2);
 	line_reader = get_next_line(fd);
+	size = 0;
 	while(line_reader)
 	{
 		ft_charslinecheck(line_reader);
 		free(line_reader);
 		line_reader = get_next_line(fd);
+		size++;
 	}
 	close(fd);
+	return(--size);
 }
-void	ft_arg_check(int ac, char **av)
+int	ft_arg_check(int ac, char **av)
 {
 	if (ac > 2)
 	{
@@ -74,5 +78,5 @@ void	ft_arg_check(int ac, char **av)
 		ft_putstr_fd("./fdf \"MAP PATH\"", 2);
 		exit(1);
 	}
-	ft_charscheck(*av);
+	return(ft_charscheck(*av));
 }

@@ -18,35 +18,55 @@
 #include "get_next_line.h"
 #include <fcntl.h> //readonlymacro
 
-typedef struct s_2d_point
+//	Screen Resolution
+# define WIN_WIDTH	1920
+# define WIN_HEIGHT	1080
+
+typedef struct s_3d_point
 {
 	double	x;
 	double	y;
-	struct s_2d_point *next;
+	double	z;
+	struct s_3d_point *next;
     //double :variable with 64 bits, 
     //theerefore precision of 15 casasdec.
-}	t_2d_point;
+}	t_3d_point;
 
 
 
 typedef struct s_line{
 	int line_index;
-	t_2d_point *pos;
+	t_3d_point *pos;
 	struct s_line *next_line;
 
 }t_line;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
 
+typedef struct s_mlx
+{
+	void			*mlx;
+	void			*win;
+	t_img			*img;
+	struct s_line *map;
+}				t_mlx; 
 
 
 
 
 //parsing
-void	ft_arg_check(int argc, char **argv);
-void ft_charscheck(char *file_path);
+int	ft_arg_check(int argc, char **argv);
+int ft_charscheck(char *file_path);
 
 //init
-void ft_file_to_lines(char *fd);
+void ft_file_to_lines(char *fd, int number_lines);
 
 //lineutils
 void ft_linescheck(t_line **lines, int i, char *gnl);
@@ -54,5 +74,8 @@ void ft_free_lines(t_line *lines);
 
 //print lines
 void ft_print_line(t_line *line);
+
+//draw
+ void	ft_mlx_init(t_mlx *mlx, t_line *map);
 
 #endif

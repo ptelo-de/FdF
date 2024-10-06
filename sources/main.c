@@ -16,8 +16,8 @@
 
 int	main(int ac, char **av)
 {
-	ft_arg_check(ac, ++av);
-	ft_file_to_lines(*av);
+	int size = ft_arg_check(ac, ++av);
+	ft_file_to_lines(*av, size);
 	
 }
 

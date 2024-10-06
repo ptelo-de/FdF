@@ -19,7 +19,7 @@ GNL_DIR			=	includes/get_next_line/
 
 MLX_PATH		=	minilibx-linux/
 
-LINKS			=	-lm -lXext -lX11 -L$(MLX_PATH) -lmlx -L$(LFT_PATH) -lft
+LINKS			=  -L./minilibx-linux -lmlx -L./includes/libft -lft -lX11 -lXext -lm -lbsd
 
 SRC				=	$(addprefix $(SRC_DIR), get_next_line_utils.c) \
 					$(addprefix $(SRC_DIR), get_next_line.c) \
@@ -29,6 +29,7 @@ SRC				=	$(addprefix $(SRC_DIR), get_next_line_utils.c) \
 					$(addprefix $(SRC_DIR), file_to_lines.c) \
 					$(addprefix $(SRC_DIR), print_lines.c) \
 					$(addprefix $(SRC_DIR), lineutils.c) \
+					$(addprefix $(SRC_DIR), draw.c) \
 
 OBJ_DIRS		=	$(OBJ_DIR) $(addprefix $(OBJ_DIR), $(SRC_DIR))
 

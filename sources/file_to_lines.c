@@ -1,19 +1,20 @@
 #include "../includes/fdF.h"
 
-void ft_add_pos(t_2d_point **pos, char *x, int y)
+void ft_add_pos(t_3d_point **pos, char *z, int y, int x)
 {
-    t_2d_point *new_node;
-    t_2d_point *current;
+    t_3d_point *new_node;
+    t_3d_point *current;
 
-    new_node = ft_calloc(1, sizeof(t_2d_point));
+    new_node = ft_calloc(1, sizeof(t_3d_point));
     if (!new_node)
     {
         ft_putstr_fd("calloc failed in pos init", 2);
         exit(1);
     }
     new_node->y = y;
-    new_node->x = ft_atoi2(x, 0, 1);
-    free(x);
+    new_node->z = ft_atoi2(z, 0, 1);
+    new_node->x = x;
+    free(z);
     new_node->next = NULL;
 
     if (!(*pos))
@@ -28,14 +29,16 @@ void ft_add_pos(t_2d_point **pos, char *x, int y)
         current->next = new_node;
     }
 }
-t_2d_point *ft_pos_init(char *file_line, int y)
+t_3d_point *ft_pos_init(char *file_line, int y)
 {
     int i;
     int j;
-    t_2d_point *pos;
+    t_3d_point *pos;
+    int x;
 
     pos = NULL;
     i = 0;
+    x = 0;
     while (file_line[i])
     {
         while (file_line[i] == 32 || file_line[i] == '\n')
@@ -44,7 +47,7 @@ t_2d_point *ft_pos_init(char *file_line, int y)
         while (file_line[i + j] && file_line[i + j] != 32 && file_line[i + j] != '\n')
             j++;
         if (j > 0)
-            ft_add_pos(&pos, ft_substr(file_line, i, j), y);
+            ft_add_pos(&pos, ft_substr(file_line, i, j), y, x++);
         i += j;
     }
     return(pos);
@@ -85,12 +88,11 @@ void ft_add_line(t_line **lines, t_line *new_line)
     tmp->next_line = new_line;
     
 }
-void ft_file_to_lines(char *file_path)
+void ft_file_to_lines(char *file_path, int num_lines)
 {
     t_line *lines;
     char *gnl;
     int fd;
-    int i;
     //int i;
 
     fd = open(file_path, O_RDONLY);
@@ -105,20 +107,21 @@ void ft_file_to_lines(char *file_path)
         ft_putstr_fd("gnl returned null", 2);
         exit(1);
     }
-    i = 0;
     lines = NULL;
     while(gnl)
     {
-
-    ft_add_line(&lines, ft_new_line(gnl, i)); 
-    ft_linescheck(&lines, i++, gnl);
-    free(gnl);
-    gnl = get_next_line(fd);
+        ft_add_line(&lines, ft_new_line(gnl, num_lines)); 
+        ft_linescheck(&lines, num_lines, gnl);
+        free(gnl);
+        gnl = get_next_line(fd);
+        num_lines--;
     }
         ft_print_line(lines);
     
     free(gnl);
 	close(fd);
+    t_mlx mlx;
+    ft_mlx_init(&mlx, lines);
     ft_free_lines(lines);
 }
 

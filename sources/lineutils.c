@@ -9,9 +9,9 @@ t_line *ft_lastline(t_line *line)
         aux = aux->next_line;
     return(aux);
 }
-void ft_free_pos(t_2d_point *pos)
+void ft_free_pos(t_3d_point *pos)
 {
-    t_2d_point *tmp;
+    t_3d_point *tmp;
 
     while (pos)
     {
