@@ -17,8 +17,17 @@
 int	main(int ac, char **av)
 {
 	int size = ft_arg_check(ac, ++av);
-	ft_file_to_lines(*av, size);
-	
+	t_line *lines = ft_file_to_lines(*av, size);
+	t_mlx mlx;
+	int color = 0x00FF00;
+	ft_mlx_init(&mlx, lines);
+	draw_pixels(&mlx, color);
+	 /* Put the image to the window */
+    mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+
+    /* Wait for events */
+    mlx_loop(mlx.mlx);
+    ft_free_lines(lines);
 }
 
 //mlx_pixel_put function is very, very slow. This is because it tries to push the pixel instantly to the window (without waiting for the frame to be entirely rendered).

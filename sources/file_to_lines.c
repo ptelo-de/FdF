@@ -88,7 +88,7 @@ void ft_add_line(t_line **lines, t_line *new_line)
     tmp->next_line = new_line;
     
 }
-void ft_file_to_lines(char *file_path, int num_lines)
+t_line *ft_file_to_lines(char *file_path, int num_lines)
 {
     t_line *lines;
     char *gnl;
@@ -120,9 +120,7 @@ void ft_file_to_lines(char *file_path, int num_lines)
     
     free(gnl);
 	close(fd);
-    t_mlx mlx;
-    ft_mlx_init(&mlx, lines);
-    ft_free_lines(lines);
+    return (lines);
 }
 
     // line = get_next_line(fd);

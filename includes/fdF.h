@@ -48,6 +48,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	//0 for little-endian, 1 for big-endian
+	//Endianness determines how multi-byte pixel data is stored in memory.
 }				t_img;
 
 typedef struct s_mlx
@@ -66,7 +68,7 @@ int	ft_arg_check(int argc, char **argv);
 int ft_charscheck(char *file_path);
 
 //init
-void ft_file_to_lines(char *fd, int number_lines);
+t_line *ft_file_to_lines(char *fd, int number_lines);
 
 //lineutils
 void ft_linescheck(t_line **lines, int i, char *gnl);
@@ -77,5 +79,7 @@ void ft_print_line(t_line *line);
 
 //draw
  void	ft_mlx_init(t_mlx *mlx, t_line *map);
+ void    draw_pixels(t_mlx *mlx, int color);
+ void	draw_pixel(t_img *img, int x, int y, int color);
 
 #endif
