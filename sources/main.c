@@ -17,16 +17,16 @@
 int	main(int ac, char **av)
 {
 	int size = ft_arg_check(ac, ++av);
-	t_line *lines = ft_file_to_lines(*av, size);
-	t_mlx mlx;
-	int color = 0x00FF00;
-	ft_mlx_init(&mlx, lines);
-	draw_pixels(&mlx, color);
+	t_line *lines = ft_file_to_lines(*av);
+	t_data data;
+	int color = 0xFF0000;
+	ft_mlx_init(&data, lines);
+	draw_pixels(&data, color);
 	 /* Put the image to the window */
-    mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+    mlx_put_image_to_window(data.mlx, data.win, data.img->img, 0, 0);
 
     /* Wait for events */
-    mlx_loop(mlx.mlx);
+    mlx_loop(data.mlx);
     ft_free_lines(lines);
 }
 

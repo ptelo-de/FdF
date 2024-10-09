@@ -21,12 +21,13 @@
 //	Screen Resolution
 # define WIN_WIDTH	1920
 # define WIN_HEIGHT	1080
+# define ZOOM 20  // Scaling factor for grid size
 
 typedef struct s_3d_point
 {
-	double	x;
-	double	y;
-	double	z;
+	int	x;
+	int	y;
+	int	z;
 	struct s_3d_point *next;
     //double :variable with 64 bits, 
     //theerefore precision of 15 casasdec.
@@ -52,13 +53,15 @@ typedef struct s_img
 	//Endianness determines how multi-byte pixel data is stored in memory.
 }				t_img;
 
-typedef struct s_mlx
+typedef struct s_data
 {
 	void			*mlx;
 	void			*win;
 	t_img			*img;
+	int grid_width;
+    int grid_height;
 	struct s_line *map;
-}				t_mlx; 
+}				t_data; 
 
 
 
@@ -68,7 +71,7 @@ int	ft_arg_check(int argc, char **argv);
 int ft_charscheck(char *file_path);
 
 //init
-t_line *ft_file_to_lines(char *fd, int number_lines);
+t_line *ft_file_to_lines(char *fd);
 
 //lineutils
 void ft_linescheck(t_line **lines, int i, char *gnl);
@@ -78,8 +81,8 @@ void ft_free_lines(t_line *lines);
 void ft_print_line(t_line *line);
 
 //draw
- void	ft_mlx_init(t_mlx *mlx, t_line *map);
- void    draw_pixels(t_mlx *mlx, int color);
+ void	ft_mlx_init(t_data *mlx, t_line *map);
+ void    draw_pixels(t_data *mlx, int color);
  void	draw_pixel(t_img *img, int x, int y, int color);
 
 #endif

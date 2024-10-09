@@ -88,12 +88,12 @@ void ft_add_line(t_line **lines, t_line *new_line)
     tmp->next_line = new_line;
     
 }
-t_line *ft_file_to_lines(char *file_path, int num_lines)
+t_line *ft_file_to_lines(char *file_path)
 {
     t_line *lines;
     char *gnl;
     int fd;
-    //int i;
+    int i;
 
     fd = open(file_path, O_RDONLY);
     if(fd < 0)
@@ -108,13 +108,14 @@ t_line *ft_file_to_lines(char *file_path, int num_lines)
         exit(1);
     }
     lines = NULL;
+    i = 0;
     while(gnl)
     {
-        ft_add_line(&lines, ft_new_line(gnl, num_lines)); 
-        ft_linescheck(&lines, num_lines, gnl);
+        ft_add_line(&lines, ft_new_line(gnl, i)); 
+        ft_linescheck(&lines, i, gnl);
         free(gnl);
         gnl = get_next_line(fd);
-        num_lines--;
+        i++;
     }
         ft_print_line(lines);
     

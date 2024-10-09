@@ -10,7 +10,7 @@ void ft_print_line(t_line *line)
     pos = tmp->pos;
     while(pos)
     {
-        printf("(%lf, %lf, %lf) ", pos->x, pos->y, pos->z);
+        printf("(%d, %d, %d) ", pos->x, pos->y, pos->z);
         pos = pos->next;
     }
     printf("\n");
